@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="machismo.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="serialize-object.js"></script>
 
 <script>
 function updateLevel(val) {
@@ -36,21 +37,22 @@ var docsfile = "http://psicobotica.com/machismo/docs-machismo.txt";
 <h2>La Inteligencia Artificial que detecta el Lenguaje Machista</h2>
 <hr>
 
-<form action="https://docs.google.com/forms/d/e/1FAIpQLSd_eiDylmPhYMxdoWWkIxit-20lvo6PNTLijxbyZ-fcJ7APgA/formResponse"
-target="_self" method="POST" onsubmit="setTimeout(function(){window.location.reload();},10)">
+<form id="form-machismo">
 
 <h3>Por favor, lee este fragmento de texto:</h3>
 
 <script>
 var aLines;
- $.get(docsfile, function(textData, status) {
+
+$.get(docsfile, function(textData, status) {
     aLines = textData.split("\n")
     
 	console.log("Read Lines: " + aLines.length)
 	
 	var selected = aLines[Math.floor(Math.random()*aLines.length)];
     // $.each(aLines, function(n, sLine) {
-    $('#textFromFile').append(selected);
+    $('div#textFromFile').text(selected);
+	console.log("Selectec text: " + selected)
 	updateText(selected)	
     });
 // }, 'text');
@@ -59,10 +61,13 @@ var aLines;
 
 </script>
 
+<div id="thanksMsg">
+</div>
+
 <div class="docu" id="textFromFile">
 </div>
 
-<input hidden type="text" id="Docu" name="entry.1177243058"> 
+<input hidden type="text" id="Docu" name="texto"> 
 <br><br>
 
 <h3>Selecciona el Nivel de Machismo que percibes y haz clic en Enviar:<h4>
@@ -73,8 +78,9 @@ var aLines;
 
 <td>
 <input
+id="Level"
 type="range" 
-name="entry.1556831257" 
+name="nivel" 
 min="0" max="100" step="5" 
 onchange="updateLevel(this.value);"
 onmouseover="updateLevel(this.value);"
@@ -88,9 +94,28 @@ onclick="updateLevel(this.value);">
 <output type="text" id="LevelLabel" value="50"></output>
 
 <br><br>
-<input type="submit" value="Enviar">
+<button type="submit" id="submit-form">Enviar</button>
 
 </form>
+
+<script >
+var $form = $('form#form-machismo'),
+    url = 'https://script.google.com/macros/s/AKfycbzlOJmLZvsxyetH-0gXf32r7C3yEELv4wWaEbZXTFks2_PCOdZu/exec'
+
+$('#submit-form').on('click', function(e) {
+  e.preventDefault();
+  var jqxhr = $.ajax({
+    url: url,
+    method: "GET",
+    dataType: "json",
+    data: $form.serializeObject(),
+	success: function(response){
+		document.getElementById("thanksMsg").innerHTML = "Gracias";
+    }
+  });
+})
+</script>
+
 
 <hr>
 

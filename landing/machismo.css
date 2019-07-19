@@ -23,7 +23,8 @@ input[type='range']::-webkit-slider-thumb {
     width: 12px;
 }
 
-input[type="submit"] {
+button {
+  -webkit-appearance: none; 
   background-color: #6C70eF;
   border: 2px solid #4C50CF; 
   border-radius: 4px;
@@ -35,11 +36,12 @@ input[type="submit"] {
   font-size: 16px;
 }
 
-input[type="submit"]:hover {
+button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
   background-color: #4C50CF; 
   color: white;
 }
+
 
 div.docu {
   background-color: white;
