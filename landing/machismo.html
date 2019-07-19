@@ -1,0 +1,101 @@
+﻿<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<link rel="stylesheet" href="machismo.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+function updateLevel(val) {
+          document.getElementById('LevelLabel').value=val+"%"; 
+        }
+</script>
+
+<script>
+function updateText(val) {
+          document.getElementById('Docu').value=val; 
+        }
+</script>
+
+<script>
+var docsfile = "http://psicobotica.com/machismo/docs-machismo.txt";
+</script>
+
+
+</head>
+
+<body onload="updateLevel(50)">
+
+
+<center>
+
+<h1>¡Ayúdanos a entrenar a EqualBot!</h1>
+<h2>La Inteligencia Artificial que detecta el Lenguaje Machista</h2>
+<hr>
+
+<form action="https://docs.google.com/forms/d/e/1FAIpQLSd_eiDylmPhYMxdoWWkIxit-20lvo6PNTLijxbyZ-fcJ7APgA/formResponse"
+target="_self" method="POST" onsubmit="setTimeout(function(){window.location.reload();},10)">
+
+<h3>Por favor, lee este fragmento de texto:</h3>
+
+<script>
+var aLines;
+ $.get(docsfile, function(textData, status) {
+    aLines = textData.split("\n")
+    
+	console.log("Read Lines: " + aLines.length)
+	
+	var selected = aLines[Math.floor(Math.random()*aLines.length)];
+    // $.each(aLines, function(n, sLine) {
+    $('#textFromFile').append(selected);
+	updateText(selected)	
+    });
+// }, 'text');
+
+
+
+</script>
+
+<div class="docu" id="textFromFile">
+</div>
+
+<input hidden type="text" id="Docu" name="entry.1177243058"> 
+<br><br>
+
+<h3>Selecciona el Nivel de Machismo que percibes y haz clic en Enviar:<h4>
+
+<table>
+<tr>
+<td>Nada Machista</td>
+
+<td>
+<input
+type="range" 
+name="entry.1556831257" 
+min="0" max="100" step="5" 
+onchange="updateLevel(this.value);"
+onmouseover="updateLevel(this.value);"
+onclick="updateLevel(this.value);">
+</td>
+
+<td>Muy Machista</td>
+</tr>
+</table>
+
+<output type="text" id="LevelLabel" value="50"></output>
+
+<br><br>
+<input type="submit" value="Enviar">
+
+</form>
+
+<hr>
+
+</center>
+
+</body>
+
+</html>

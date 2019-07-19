@@ -1,0 +1,54 @@
+
+input[type="range"]{
+    -webkit-appearance: none;
+    -moz-apperance: none;
+    border-radius: 2px;
+	border-color: #FFFFFF;
+    height: 26px;
+	width: 280px;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        color-stop(0.15, #00FF00),
+        color-stop(0.85, #FF0000)
+    );
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background-color: #EEEEEE;
+    border: 2px solid #222222;
+    height: 26px;
+    width: 12px;
+}
+
+input[type="submit"] {
+  background-color: #6C70eF;
+  border: 2px solid #4C50CF; 
+  border-radius: 4px;
+  color: white;
+  padding: 12px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  background-color: #4C50CF; 
+  color: white;
+}
+
+div.docu {
+  background-color: white;
+  border: 2px solid #000000; 
+  border-radius: 8px;
+  color: black;
+  padding: 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+}
