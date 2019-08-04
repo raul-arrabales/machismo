@@ -8,21 +8,53 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="serialize-object.js"></script>
+<script src = "cookie.js"></script>
 
 <script>
 function updateLevel(val) {
-          document.getElementById('LevelLabel').value=val+"%"; 
-        }
-</script>
-
-<script>
+	document.getElementById('LevelLabel').value = val + "% machista"; 
+}
+		
 function updateText(val) {
-          document.getElementById('Docu').value=val; 
-        }
+	document.getElementById('Docu').value = val; 
+}	
+
+function updateCode(code) {
+	document.getElementById('usrcode').value = code; 
+}	
+
+function updateCategory(cat) {
+	document.getElementById('category').value = cat; 
+}	
+
+function updateSource(src) {
+	document.getElementById('source').value = src; 
+}	
+
+function updateAuthor(aut) {
+	document.getElementById('author').value = aut; 
+}	
+
+function updateDataset(ds) {
+	document.getElementById('dataset').value = ds; 
+}	
+
+
+var docsfile = "http://psicobotica.com/machismo/docs-machismo.txt";
 </script>
 
 <script>
-var docsfile = "http://psicobotica.com/machismo/docs-machismo.txt";
+var cookiename = "equalbot";
+var cookiecode = Math.random().toString();
+usrcookie = getCookie(cookiename);
+if(usrcookie == ""){
+	console.log("No cookie found, using code: " + cookiecode);
+	setCookie(cookiename, cookiecode, 365);
+} else {
+	var items = usrcookie.split('=');
+	cookiecode = items[0];
+	console.log("Cookie found, using cookie code: " + cookiecode);
+}
 </script>
 
 
@@ -33,13 +65,16 @@ var docsfile = "http://psicobotica.com/machismo/docs-machismo.txt";
 
 <center>
 
-<h1>¡Ayúdanos a entrenar a EqualBot!</h1>
-<h2>La Inteligencia Artificial que detecta el Lenguaje Machista</h2>
+<h1>¡Entrena a EqualBot!</h1>
+<img src="EqualBotBlack_300.png" align="center">
+<h2>La Inteligencia Artificial<br>que detecta el Lenguaje Machista</h2>
 <hr>
 
 <form id="form-machismo">
 
-<h3>Por favor, lee este fragmento de texto:</h3>
+<div class="instructions">Por favor, lee el siguiente fragmento de texto.<br>
+Selecciona el Nivel de Machismo que percibes y haz clic en Enviar:</div>
+<br>&nbsp;<br>
 
 <script>
 var aLines;
@@ -49,11 +84,17 @@ $.get(docsfile, function(textData, status) {
     
 	console.log("Read Lines: " + aLines.length)
 	
-	var selected = aLines[Math.floor(Math.random()*aLines.length)];
-    // $.each(aLines, function(n, sLine) {
-    $('div#textFromFile').text(selected);
-	console.log("Selectec text: " + selected)
-	updateText(selected)	
+	var selectedLine = aLines[Math.floor(Math.random()*aLines.length)];
+	var fields = selectedLine.split("::");
+	console.log("Fields: " + fields);
+    var selectedText = fields[0];
+    $('div#textFromFile').text(selectedText);
+	console.log("Selectec text: " + selectedText);
+	updateText(selectedText);
+	updateCategory(fields[1]);
+	updateSource(fields[2]);
+	updateAuthor(fields[3]);
+	updateDataset(fields[4]);
     });
 // }, 'text');
 
@@ -61,20 +102,24 @@ $.get(docsfile, function(textData, status) {
 
 </script>
 
-<div id="thanksMsg">
-</div>
+<div id="thanksMsg"></div>
 
-<div class="docu" id="textFromFile">
-</div>
+<div class="docu" id="textFromFile"></div>
 
 <input hidden type="text" id="Docu" name="texto"> 
+<input hidden type="text" id="usrcode" name="cookie"> 
+<input hidden type="text" id="category" name="category"> 
+<input hidden type="text" id="source" name="source"> 
+<input hidden type="text" id="author" name="author"> 
+<input hidden type="text" id="dataset" name="dataset"> 
 <br><br>
 
-<h3>Selecciona el Nivel de Machismo que percibes y haz clic en Enviar:<h4>
+
+<h1><output type="text" id="LevelLabel" value="50"></output></h1>
 
 <table>
 <tr>
-<td>Nada Machista</td>
+<td><div class="instructions2">Nada<br>Machista</div></td>
 
 <td>
 <input
@@ -87,11 +132,11 @@ onmouseover="updateLevel(this.value);"
 onclick="updateLevel(this.value);">
 </td>
 
-<td>Muy Machista</td>
+<td><div class="instructions2">Muy<br>Machista</div></td>
 </tr>
 </table>
 
-<output type="text" id="LevelLabel" value="50"></output>
+
 
 <br><br>
 <button type="submit" id="submit-form">Enviar</button>
@@ -104,13 +149,29 @@ var $form = $('form#form-machismo'),
 
 $('#submit-form').on('click', function(e) {
   e.preventDefault();
+  updateCode(cookiecode);
+  document.getElementById("thanksMsg").innerHTML = "<img src='processing.gif' align='center'>";
+  document.getElementById("textFromFile").innerHTML = "<b>¡Gracias!</b><br>*** Aprendiendo nuevo patrón de lenguaje ***";
   var jqxhr = $.ajax({
     url: url,
     method: "GET",
     dataType: "json",
     data: $form.serializeObject(),
 	success: function(response){
-		document.getElementById("thanksMsg").innerHTML = "Gracias";
+		document.getElementById("thanksMsg").innerHTML = " ";
+		var selectedLine = aLines[Math.floor(Math.random()*aLines.length)];
+		var fields = selectedLine.split("::");
+		console.log("Fields: " + fields);
+		selectedText = fields[0];
+		$('div#textFromFile').text(selectedText);
+		console.log("Selectec text: " + selectedText);
+		updateText(selectedText);
+		updateCategory(fields[1]);
+		updateSource(fields[2]);
+		updateAuthor(fields[3]);
+		updateDataset(fields[4]);		
+		updateLevel(50);
+		document.getElementById("Level").value = 50;
     }
   });
 })

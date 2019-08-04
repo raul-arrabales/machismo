@@ -4,23 +4,36 @@ input[type="range"]{
     -moz-apperance: none;
     border-radius: 2px;
 	border-color: #FFFFFF;
-    height: 26px;
-	width: 280px;
+    height: 66px;
+	width: 480px;
     background-image: -webkit-gradient(
         linear,
         left top,
         right top,
-        color-stop(0.15, #00FF00),
+        color-stop(0.05, #66FF66),
+		color-stop(0.50, #FF9933),
         color-stop(0.85, #FF0000)
     );
+}
+
+h1 {
+	font-size: 32px;
+}
+
+h2 {
+	font-size: 28px;
+}
+
+h3 {
+	font-size: 24px;
 }
 
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     background-color: #EEEEEE;
     border: 2px solid #222222;
-    height: 26px;
-    width: 12px;
+    height: 64px;
+    width: 18px;
 }
 
 button {
@@ -33,7 +46,7 @@ button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 32px;
 }
 
 button:hover {
@@ -42,9 +55,23 @@ button:hover {
   color: white;
 }
 
+div.instructions {
+  text-align: center;
+  text-decoration: none;
+  color: grey;
+  font-size: 22px;
+}
+
+div.instructions2 {
+  text-align: center;
+  text-decoration: none;
+  color: #444444;
+  font-size: 22px;
+}
+
 
 div.docu {
-  background-color: white;
+  background-color: #ffffb3;
   border: 2px solid #000000; 
   border-radius: 8px;
   color: black;
@@ -52,5 +79,5 @@ div.docu {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 20px;
+  font-size: 24px;
 }
