@@ -1,0 +1,192 @@
+﻿<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<link rel="stylesheet" href="machismo.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="serialize-object.js"></script>
+<script src = "cookie.js"></script>
+
+<script>
+function updateLevel(val) {
+	document.getElementById('LevelLabel').value = val + "% machista"; 
+}
+		
+function updateText(val)	{
+	document.getElementById('Docu').value = val; 
+	document.getElementById('textFromFile').innerHTML = val; 
+}	
+
+function updateCode(code) {
+	document.getElementById('usrcode').value = code; 
+}	
+
+function updateCategory(cat) {
+	document.getElementById('category').value = cat; 
+}	
+
+function updateSource(src) {
+	document.getElementById('source').value = src;
+}	
+
+function updateAuthor(aut) {
+	document.getElementById('author').value = aut; 
+}	
+
+function updateDataset(ds) {
+	document.getElementById('dataset').value = ds; 
+	document.getElementById('sourceFromFile').innerHTML = 
+		"(Fuente: " + ds + ")"; 
+}	
+
+
+var docsfile = "http://psicobotica.com/machismo/data/web_machismo_2.csv";
+</script>
+
+<script>
+var cookiename = "equalbot";
+var cookiecode = Math.random().toString();
+usrcookie = getCookie(cookiename);
+if(usrcookie == ""){
+	console.log("No cookie found, using code: " + cookiecode);
+	setCookie(cookiename, cookiecode, 365);
+} else {
+	var items = usrcookie.split('=');
+	cookiecode = items[0];
+	console.log("Cookie found, using cookie code: " + cookiecode);
+}
+</script>
+
+
+</head>
+
+<body onload="updateLevel(0)">
+
+
+<center>
+
+<h1>¡Entrena a EqualBot!</h1>
+<img src="EqualBotBlack_300.png" align="center">
+<h2>La Inteligencia Artificial<br>que detecta el Lenguaje Machista</h2>
+<hr>
+
+<form id="form-machismo">
+
+<div class="instructions">Por favor, lee el siguiente fragmento de texto.<br>
+Selecciona el Nivel de Machismo que percibes y haz clic en Enviar:</div>
+<br>&nbsp;<br>
+
+<script>
+var aLines;
+
+$.get(docsfile, function(textData, status) {
+    aLines = textData.split("\n")
+    
+	console.log("Read Lines: " + aLines.length)
+	
+	var selectedLine = aLines[Math.floor(Math.random()*aLines.length)];
+	var fields = selectedLine.split("::");
+	console.log("Fields: " + fields);
+    var selectedText = fields[0];
+    $('div#textFromFile').text(selectedText);
+	console.log("Selectec text: " + selectedText);
+	updateText(selectedText);
+	updateCategory(fields[1]);
+	updateSource(fields[2]);
+	updateAuthor(fields[3]);
+	updateDataset(fields[4]);
+    });
+// }, 'text');
+
+
+
+</script>
+
+<div id="thanksMsg"></div>
+
+<div class="docu" id="textFromFile">[Cargando datos... Espere un momento por favor.]</div>
+<div class="source" id="sourceFromFile">(Fuente: )</div>
+
+<input hidden type="text" id="Docu" name="texto"> 
+<input hidden type="text" id="usrcode" name="cookie"> 
+<input hidden type="text" id="category" name="category"> 
+<input hidden type="text" id="source" name="source"> 
+<input hidden type="text" id="author" name="author"> 
+<input hidden type="text" id="dataset" name="dataset"> 
+<br><br>
+
+
+<h1><output type="text" id="LevelLabel" value="0"></output></h1>
+
+<table>
+<tr>
+<td><div class="instructions2">Nada<br>Machista</div></td>
+
+<td>
+<input
+id="Level"
+type="range" 
+name="nivel" 
+min="0" max="100" step="5" 
+value="0"
+onchange="updateLevel(this.value);"
+onmouseover="updateLevel(this.value);"
+onclick="updateLevel(this.value);">
+</td>
+
+<td><div class="instructions2">Muy<br>Machista</div></td>
+</tr>
+</table>
+
+
+
+<br><br>
+<button type="submit" id="submit-form">Enviar</button>
+
+</form>
+
+<script >
+var $form = $('form#form-machismo'),
+    url = 'https://script.google.com/macros/s/AKfycbzlOJmLZvsxyetH-0gXf32r7C3yEELv4wWaEbZXTFks2_PCOdZu/exec'
+
+$('#submit-form').on('click', function(e) {
+  e.preventDefault();
+  updateCode(cookiecode);
+  document.getElementById("thanksMsg").innerHTML = "<img src='processing.gif' align='center'>";
+  document.getElementById("textFromFile").innerHTML = "<b>¡Gracias!</b><br>*** Aprendiendo nuevo patrón de lenguaje ***";
+  var jqxhr = $.ajax({
+    url: url,
+    method: "GET",
+    dataType: "json",
+    data: $form.serializeObject(),
+	success: function(response){
+		document.getElementById("thanksMsg").innerHTML = " ";
+		var selectedLine = aLines[Math.floor(Math.random()*aLines.length)];
+		var fields = selectedLine.split("::");
+		console.log("Fields: " + fields);
+		selectedText = fields[0];
+		$('div#textFromFile').text(selectedText);
+		console.log("Selectec text: " + selectedText);
+		updateText(selectedText);
+		updateCategory(fields[1]);
+		updateSource(fields[2]);
+		updateAuthor(fields[3]);
+		updateDataset(fields[4]);		
+		updateLevel(0);
+		document.getElementById("Level").value = 0;
+    }
+  });
+})
+</script>
+
+
+<hr>
+
+</center>
+
+</body>
+
+</html>

@@ -1,3 +1,9 @@
+html {
+    font-size: 20px;
+}
+.unbehaved-element {
+    font-size: 2em;
+}
 
 input[type="range"]{
     -webkit-appearance: none;
@@ -59,7 +65,7 @@ div.instructions {
   text-align: center;
   text-decoration: none;
   color: grey;
-  font-size: 22px;
+  font-size: 22px; 
 }
 
 div.instructions2 {
@@ -69,6 +75,15 @@ div.instructions2 {
   font-size: 22px;
 }
 
+div.source {
+  color: grey;
+  padding: 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 22px;
+  min-width: 480px;
+  max-width: 720px;
+}
 
 div.docu {
   background-color: #ffffb3;
@@ -79,5 +94,7 @@ div.docu {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 24px;
+  font-size: 1.8em; /* font-size: 32px; */
+  min-width: 480px;
+  max-width: 720px;
 }
