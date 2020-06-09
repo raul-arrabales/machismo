@@ -43,7 +43,7 @@ function updateDataset(ds) {
 }	
 
 
-var docsfile = "http://psicobotica.com/machismo/data/web_machismo_2.csv";
+var docsfile = "https://psicobotica.com/machismo/data/web_machismo_2.csv";
 </script>
 
 <script>
@@ -67,17 +67,15 @@ if(usrcookie == ""){
 
 
 <center>
-
-<h1>¡Entrena a EqualBot!</h1>
 <img src="EqualBotBlack_300.png" align="center">
-<h2>La Inteligencia Artificial<br>que detecta el Lenguaje Machista</h2>
+<h2>¡Entrena a EqualBot!<br>La Inteligencia Artificial que detecta el Lenguaje Machista</h2>
 <hr>
 
 <form id="form-machismo">
 
 <div class="instructions">Por favor, lee el siguiente fragmento de texto.<br>
 Selecciona el Nivel de Machismo que percibes y haz clic en Enviar:</div>
-<br>&nbsp;<br>
+<br>
 
 <script>
 var aLines;
@@ -116,7 +114,6 @@ $.get(docsfile, function(textData, status) {
 <input hidden type="text" id="source" name="source"> 
 <input hidden type="text" id="author" name="author"> 
 <input hidden type="text" id="dataset" name="dataset"> 
-<br><br>
 
 
 <h1><output type="text" id="LevelLabel" value="0"></output></h1>
